@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class PasswordHashing {
-    BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+    private final BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
 
     public String hash(String password) {
         return bCryptPasswordEncoder.encode(password);

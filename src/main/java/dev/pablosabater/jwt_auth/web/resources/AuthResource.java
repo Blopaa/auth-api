@@ -5,6 +5,7 @@ import dev.pablosabater.jwt_auth.dom.services.AuthServices;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,12 +22,12 @@ public class AuthResource {
     }
 
     @PostMapping(value = "/signup")
-    public ResponseEntity<String> signup(Optional<UserDto> userDto){
+    public ResponseEntity<String> signup(@RequestBody Optional<UserDto> userDto){
         return new ResponseEntity<>(authServices.signup(userDto), HttpStatus.CREATED);
     }
 
     @PostMapping(value = "/signin")
-    public ResponseEntity<String> signin(Optional<UserDto> userDto){
+    public ResponseEntity<String> signin(@RequestBody Optional<UserDto> userDto){
         return new ResponseEntity<>(authServices.signin(userDto), HttpStatus.OK);
     }
 }
