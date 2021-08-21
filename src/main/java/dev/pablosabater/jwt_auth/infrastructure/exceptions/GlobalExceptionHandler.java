@@ -14,8 +14,8 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(ValidationException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ResponseEntity<BaseException> validationExceptionHandler (ValidationException ex) {
-        return new ResponseEntity<>(BaseException.builder()
+    public ResponseEntity<ApiError> validationExceptionHandler (ValidationException ex) {
+        return new ResponseEntity<>(ApiError.builder()
                 .title(ex.getTitle())
                 .details(ex.getDetails())
                 .status(ex.getStatus())
@@ -24,12 +24,22 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(SearchException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ResponseEntity<BaseException> searchExeptionHandler (ValidationException ex) {
-        return new ResponseEntity<>(BaseException.builder()
+    public ResponseEntity<ApiError> searchExeptionHandler (ValidationException ex) {
+        return new ResponseEntity<>(ApiError.builder()
                 .title(ex.getTitle())
                 .details(ex.getDetails())
                 .status(ex.getStatus())
-                .build(), HttpStatus.BAD_REQUEST);
+                .build(), HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler(ServerException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public ResponseEntity<ApiError> InternalErrorHandler (ValidationException ex) {
+        return new ResponseEntity<>(ApiError.builder()
+                .title(ex.getTitle())
+                .details(ex.getDetails())
+                .status(ex.getStatus())
+                .build(), HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @Override
